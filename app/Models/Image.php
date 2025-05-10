@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Image extends Model
 {
-
     use HasFactory,SoftDeletes;
-    protected $guarded = [];
 
+    protected $guarded = [];
 }

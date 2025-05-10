@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Single extends Model
 {
+    use HasFactory, SoftDeletes, Translatable;
 
-    use HasFactory, Translatable, SoftDeletes;
-    public $translatedAttributes = ['title','seo_description','seo_title','seo_keywords', 'slug'];
+    public $translatedAttributes = ['title', 'seo_description', 'seo_title', 'seo_keywords', 'slug'];
+
     protected $fillable = ['type'];
-
 }

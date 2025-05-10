@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryTranslation extends Model
 {
-
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['title','category_id','locale'];
 
+    protected $fillable = ['title', 'category_id', 'locale'];
 }

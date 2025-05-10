@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogTranslation extends Model
 {
-
     use HasFactory;
 
     public $timestamps = false;
+
     protected $fillable = [
         'title',
         'description',
@@ -21,7 +21,6 @@ class BlogTranslation extends Model
         'slug',
         'meta_title',
         'meta_keywords',
-        'meta_description'
+        'meta_description',
     ];
-
 }

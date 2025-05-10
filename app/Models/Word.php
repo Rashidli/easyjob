@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Word extends Model
 {
-    use HasFactory, Translatable, SoftDeletes;
+    use HasFactory, SoftDeletes, Translatable;
+
     public $translatedAttributes = ['title'];
+
     protected $fillable = ['key'];
 }

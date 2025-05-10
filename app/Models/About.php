@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class About extends Model
 {
-    use HasFactory, Translatable, SoftDeletes;
+    use HasFactory, SoftDeletes, Translatable;
+
     public $translatedAttributes = [
         'title',
         'description',
@@ -17,7 +18,8 @@ class About extends Model
         'img_title',
         'slug',
     ];
-    protected $fillable = ['image','is_active'];
+
+    protected $fillable = ['image', 'is_active'];
 
     public function scopeActive($query)
     {

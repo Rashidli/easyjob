@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
-
     public function login()
     {
         return view('login');
@@ -21,5 +20,4 @@ class PageController extends Controller
     {
         return view('home');
     }
-
 }

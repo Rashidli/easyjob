@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
+    use HasFactory, SoftDeletes, Translatable;
 
-    use HasFactory, Translatable, SoftDeletes;
     public $translatedAttributes = [
         'title',
         'description',
@@ -19,9 +19,10 @@ class Blog extends Model
         'slug',
         'meta_title',
         'meta_description',
-        'meta_keywords'
+        'meta_keywords',
     ];
-    protected $fillable = ['image','is_active','is_new'];
+
+    protected $fillable = ['image', 'is_active', 'is_new'];
 
     public function scopeActive($query)
     {
@@ -37,5 +38,4 @@ class Blog extends Model
     {
         return $this->belongsToMany(Service::class, 'blog_service');
     }
-
 }

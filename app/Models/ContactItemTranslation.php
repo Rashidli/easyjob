@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactItemTranslation extends Model
 {
-
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['title','value'];
 
+    protected $fillable = ['title', 'value'];
 }

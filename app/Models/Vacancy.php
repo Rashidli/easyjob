@@ -3,21 +3,20 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Vacancy extends Model
 {
-
     use SoftDeletes;
+
     protected $guarded = [];
 
     protected function casts(): array
     {
         return [
-            'is_premium' => 'boolean',
-            'is_site' => 'boolean',
+            'is_premium'   => 'boolean',
+            'is_site'      => 'boolean',
             'published_at' => 'datetime',
         ];
     }

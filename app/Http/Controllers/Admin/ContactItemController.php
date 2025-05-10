@@ -11,23 +11,22 @@ class ContactItemController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:list-contact_lists|create-contact_lists|edit-contact_lists|delete-contact_lists', ['only' => ['index','show']]);
-        $this->middleware('permission:create-contact_lists', ['only' => ['create','store']]);
+        $this->middleware('permission:list-contact_lists|create-contact_lists|edit-contact_lists|delete-contact_lists', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-contact_lists', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit-contact_lists', ['only' => ['edit']]);
         $this->middleware('permission:delete-contact_lists', ['only' => ['destroy']]);
     }
+
     public function index()
     {
-
         $contact_items = ContactItem::paginate(10);
-        return view('admin.contact_items.index', compact('contact_items'));
 
+        return view('admin.contact_items.index', compact('contact_items'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-
     public function create()
     {
         return view('admin.contact_items.create');
@@ -38,121 +37,107 @@ class ContactItemController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
-            'az_title'=>'required',
-            'en_title'=>'required',
-            'ru_title'=>'required',
-            'az_value'=>'required',
-            'en_value'=>'required',
-            'ru_value'=>'required',
-            'image'=>'required',
-            'footer_icon'=>'required',
-
+            'az_title'    => 'required',
+            'en_title'    => 'required',
+            'ru_title'    => 'required',
+            'az_value'    => 'required',
+            'en_value'    => 'required',
+            'ru_value'    => 'required',
+            'image'       => 'required',
+            'footer_icon' => 'required',
         ]);
 
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $filename = Str::uuid() . "." . $file->extension();
-            $file->storeAs('public/',$filename);
+        if ($request->hasFile('image')) {
+            $file     = $request->file('image');
+            $filename = Str::uuid() . '.' . $file->extension();
+            $file->storeAs('public/', $filename);
         }
 
-        if($request->hasFile('footer_icon')){
-            $file = $request->file('footer_icon');
-            $filenameIcon = Str::uuid() . "." . $file->extension();
-            $file->storeAs('public/',$filenameIcon);
+        if ($request->hasFile('footer_icon')) {
+            $file         = $request->file('footer_icon');
+            $filenameIcon = Str::uuid() . '.' . $file->extension();
+            $file->storeAs('public/', $filenameIcon);
         }
 
         ContactItem::create([
-            'image'=>  $filename,
-            'footer_icon'=>  $filenameIcon,
-            'az'=>[
-                'title'=>$request->az_title,
-                'value'=>$request->az_value,
+            'image'       => $filename,
+            'footer_icon' => $filenameIcon,
+            'az'          => [
+                'title' => $request->az_title,
+                'value' => $request->az_value,
             ],
-            'en'=>[
-                'title'=>$request->en_title,
-                'value'=>$request->en_value,
+            'en' => [
+                'title' => $request->en_title,
+                'value' => $request->en_value,
             ],
-            'ru'=>[
-                'title'=>$request->ru_title,
-                'value'=>$request->ru_value,
-            ]
+            'ru' => [
+                'title' => $request->ru_title,
+                'value' => $request->ru_value,
+            ],
         ]);
 
-        return redirect()->route('contact_items.index')->with('message','ContactItem added successfully');
-
+        return redirect()->route('contact_items.index')->with('message', 'ContactItem added successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ContactItem $contact_item)
-    {
-        //
-    }
+    public function show(ContactItem $contact_item): void {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(ContactItem $contact_item)
     {
-
         return view('admin.contact_items.edit', compact('contact_item'));
-
     }
 
     /**
      * Update the specified resource in storage.
      */
-
     public function update(Request $request, ContactItem $contact_item)
     {
         $request->validate([
-            'az_title'=>'required',
-            'en_title'=>'required',
-            'ru_title'=>'required',
-            'az_value'=>'required',
-            'en_value'=>'required',
-            'ru_value'=>'required',
+            'az_title' => 'required',
+            'en_title' => 'required',
+            'ru_title' => 'required',
+            'az_value' => 'required',
+            'en_value' => 'required',
+            'ru_value' => 'required',
         ]);
 
-        if($request->hasFile('image')){
-
-            $file = $request->file('image');
-            $filename = Str::uuid() . "." . $file->extension();
-            $file->storeAs('public/',$filename);
+        if ($request->hasFile('image')) {
+            $file     = $request->file('image');
+            $filename = Str::uuid() . '.' . $file->extension();
+            $file->storeAs('public/', $filename);
             $contact_item->image = $filename;
         }
 
-        if($request->hasFile('footer_icon')){
-
-            $file = $request->file('footer_icon');
-            $filename = Str::uuid() . "." . $file->extension();
-            $file->storeAs('public/',$filename);
+        if ($request->hasFile('footer_icon')) {
+            $file     = $request->file('footer_icon');
+            $filename = Str::uuid() . '.' . $file->extension();
+            $file->storeAs('public/', $filename);
             $contact_item->footer_icon = $filename;
         }
 
-        $contact_item->update( [
-
-            'is_active'=> $request->is_active,
-            'az'=>[
-                'title'=>$request->az_title,
-                'value'=>$request->az_value,
+        $contact_item->update([
+            'is_active' => $request->is_active,
+            'az'        => [
+                'title' => $request->az_title,
+                'value' => $request->az_value,
             ],
-            'en'=>[
-                'title'=>$request->en_title,
-                'value'=>$request->en_value,
+            'en' => [
+                'title' => $request->en_title,
+                'value' => $request->en_value,
             ],
-            'ru'=>[
-                'title'=>$request->ru_title,
-                'value'=>$request->ru_value,
-            ]
-
+            'ru' => [
+                'title' => $request->ru_title,
+                'value' => $request->ru_value,
+            ],
         ]);
 
-        return redirect()->back()->with('message','ContactItem updated successfully');
-
+        return redirect()->back()->with('message', 'ContactItem updated successfully');
     }
 
     /**
@@ -160,10 +145,8 @@ class ContactItemController extends Controller
      */
     public function destroy(ContactItem $contact_item)
     {
-
         $contact_item->delete();
 
         return redirect()->route('contact_items.index')->with('message', 'ContactItem deleted successfully');
-
     }
 }

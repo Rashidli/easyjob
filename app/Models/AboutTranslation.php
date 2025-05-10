@@ -10,12 +10,13 @@ class AboutTranslation extends Model
     use HasFactory;
 
     public $timestamps = false;
+
     protected $fillable = [
         'title',
         'description',
         'about_id',
         'locale',
         'img_alt',
-        'img_title'
+        'img_title',
     ];
 }

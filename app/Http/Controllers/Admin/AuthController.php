@@ -13,10 +13,9 @@ class AuthController extends Controller
 {
     public function register_submit(RegisterRequest $request)
     {
-
         $user = new User([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
+            'name'     => $request->input('name'),
+            'email'    => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
 
@@ -25,29 +24,23 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect()->route('home');
-
     }
 
     public function login_submit(LoginRequest $request)
     {
-
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('home');
-        }else{
-            $error = \Illuminate\Validation\ValidationException::withMessages([
-                'password' => ['Şifrə yanlışdır'],
-            ]);
-            throw $error;
         }
-
+        $error = \Illuminate\Validation\ValidationException::withMessages([
+            'password' => ['Şifrə yanlışdır'],
+        ]);
+        throw $error;
     }
 
     public function logout()
     {
-
         Auth::logout();
 
         return redirect()->route('login');
-
     }
 }

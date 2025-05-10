@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Social extends Model
 {
     use HasFactory,SoftDeletes;
+
     protected $guarded = [];
 
     public function scopeActive($query)

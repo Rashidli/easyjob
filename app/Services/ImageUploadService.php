@@ -9,7 +9,6 @@ use Intervention\Image\ImageManager;
 
 class ImageUploadService
 {
-
     public function upload($file): string
     {
         $manager = new ImageManager(new Driver());
@@ -17,9 +16,9 @@ class ImageUploadService
         $image = $manager->read($file);
         $image = $image->toWebp(60);
 
-        $filename = Str::uuid()  . '.webp';
+        $filename = Str::uuid() . '.webp';
         Storage::put('public/' . $filename, (string) $image);
+
         return $filename;
     }
-
 }

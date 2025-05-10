@@ -10,14 +10,16 @@ class TagController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:list-tags|create-tags|edit-tags|delete-tags', ['only' => ['index','show']]);
-        $this->middleware('permission:create-tags', ['only' => ['create','store']]);
+        $this->middleware('permission:list-tags|create-tags|edit-tags|delete-tags', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-tags', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit-tags', ['only' => ['edit']]);
         $this->middleware('permission:delete-tags', ['only' => ['destroy']]);
     }
+
     public function index()
     {
         $tags = Tag::paginate(10);
+
         return view('admin.tags.index', compact('tags'));
     }
 
@@ -28,43 +30,37 @@ class TagController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
-            'title' => 'required',
+            'title'       => 'required',
             'description' => 'nullable',
         ]);
 
         Tag::create([
-            'title' => $request->title,
+            'title'       => $request->title,
             'description' => $request->description,
         ]);
 
         return redirect()->route('tags.index')->with('message', 'Tag added successfully');
-
     }
 
-    public function show(Tag $tag)
-    {
-        //
-    }
+    public function show(Tag $tag): void {}
 
     public function edit(Tag $tag)
     {
         return view('admin.tags.edit', compact('tag'));
     }
 
-
     public function update(Request $request, Tag $tag)
     {
         $request->validate([
-            'title' => 'required',
+            'title'       => 'required',
             'description' => 'nullable',
         ]);
 
         $tag->update([
-            'title' => $request->title,
+            'title'       => $request->title,
             'description' => $request->description,
-            'is_active' => $request->is_active,
+            'is_active'   => $request->is_active,
         ]);
 
         return redirect()->back()->with('message', 'Tag updated successfully');
@@ -73,6 +69,7 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $tag->delete();
+
         return redirect()->route('tags.index')->with('message', 'Tag deleted successfully');
     }
 }

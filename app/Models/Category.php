@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory, Translatable, SoftDeletes;
+    use HasFactory, SoftDeletes, Translatable;
+
     public $translatedAttributes = ['title'];
-    protected $fillable = ['image','row'];
+
+    protected $fillable = ['image', 'row'];
 
     public function companies()
     {
@@ -22,5 +24,4 @@ class Category extends Model
     {
         return $this->hasMany(Vacancy::class);
     }
-
 }

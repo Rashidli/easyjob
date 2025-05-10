@@ -11,6 +11,5 @@ class CompanyTranslation extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['short_title','description','company_id','locale'];
-
+    protected $fillable = ['short_title', 'description', 'company_id', 'locale'];
 }

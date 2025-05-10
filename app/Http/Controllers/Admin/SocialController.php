@@ -9,17 +9,18 @@ use Illuminate\Support\Str;
 
 class SocialController extends Controller
 {
-
     public function __construct()
     {
-        $this->middleware('permission:list-socials|create-socials|edit-socials|delete-socials', ['only' => ['index','show']]);
-        $this->middleware('permission:create-socials', ['only' => ['create','store']]);
+        $this->middleware('permission:list-socials|create-socials|edit-socials|delete-socials', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-socials', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit-socials', ['only' => ['edit']]);
         $this->middleware('permission:delete-socials', ['only' => ['destroy']]);
     }
+
     public function index()
     {
         $socials = Social::paginate(10);
+
         return view('admin.socials.index', compact('socials'));
     }
 
@@ -30,52 +31,46 @@ class SocialController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'title' => 'required',
             'image' => 'required',
-            'link' => 'required|url',
+            'link'  => 'required|url',
         ]);
 
-//        if($request->hasFile('image')){
-//            $file = $request->file('image');
-//            $filename = Str::uuid() . "." . $file->extension();
-//            $file->storeAs('public/',$filename);
-//        }
+        //        if($request->hasFile('image')){
+        //            $file = $request->file('image');
+        //            $filename = Str::uuid() . "." . $file->extension();
+        //            $file->storeAs('public/',$filename);
+        //        }
 
         Social::create([
             'title' => $request->title,
-            'image'=>  $request->image,
-            'link' => $request->link,
+            'image' => $request->image,
+            'link'  => $request->link,
         ]);
 
         return redirect()->route('socials.index')->with('message', 'Social added successfully');
-
     }
 
-    public function show(Social $social)
-    {
-        //
-    }
+    public function show(Social $social): void {}
 
     public function edit(Social $social)
     {
         return view('admin.socials.edit', compact('social'));
     }
 
-
     public function update(Request $request, Social $social)
     {
         $request->validate([
             'title' => 'required',
             'image' => 'required',
-            'link' => 'required|url',
+            'link'  => 'required|url',
         ]);
 
         $social->update([
-            'title' => $request->title,
-            'link' => $request->link,
-            'image' => $request->image,
+            'title'     => $request->title,
+            'link'      => $request->link,
+            'image'     => $request->image,
             'is_active' => $request->is_active,
         ]);
 
@@ -85,6 +80,7 @@ class SocialController extends Controller
     public function destroy(Social $social)
     {
         $social->delete();
+
         return redirect()->route('socials.index')->with('message', 'Social deleted successfully');
     }
 }

@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContactItem extends Model
 {
+    use HasFactory, SoftDeletes, Translatable;
 
-    use HasFactory, Translatable, SoftDeletes;
-    public $translatedAttributes = ['title','value'];
-    protected $fillable = ['image','is_active','footer_icon'];
+    public $translatedAttributes = ['title', 'value'];
+
+    protected $fillable = ['image', 'is_active', 'footer_icon'];
 
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
-
 }

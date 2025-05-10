@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class WordTranslation extends Model
 {
-
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['title','word_id','locale'];
 
+    protected $fillable = ['title', 'word_id', 'locale'];
 }
