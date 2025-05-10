@@ -30,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Artisan komandaları və ya GitHub Actions zamanı bu hissə atlanacaq
+        if (app()->runningInConsole()) {
+            return;
+        }
+
         $logo = Image::query()->orderBy('id')->first();
         $favicon = Image::query()->orderByDesc('id')->first();
         Carbon::setLocale(config('app.locale'));
@@ -62,4 +67,5 @@ class AppServiceProvider extends ServiceProvider
             'words' => $words,
         ]);
     }
+
 }
