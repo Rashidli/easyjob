@@ -1,0 +1,22 @@
+name: Run Pint on Push
+
+on:
+  push:
+    branches: [ "main" ] # və ya istədiyiniz branch
+
+jobs:
+  pint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run Laravel Pint
+        run: ./vendor/bin/pint
