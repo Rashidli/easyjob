@@ -48,6 +48,7 @@ class ContactItemController extends Controller
             'ru_value'=>'required',
             'image'=>'required',
             'footer_icon'=>'required',
+
         ]);
 
         if($request->hasFile('image')){
