@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Artisan komandaları və ya GitHub Actions zamanı bu hissə atlanacaq
+
         if (app()->runningInConsole()) {
             return;
         }
