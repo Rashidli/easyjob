@@ -3,10 +3,10 @@ name: Run Laravel Pint and Commit Changes
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 permissions:
   contents: write # Ensures the token has write access
