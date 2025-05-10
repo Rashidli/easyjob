@@ -55,6 +55,7 @@ class AboutController extends Controller
             'en_description'=>'required',
             'ru_description'=>'required',
             'image'=>'required',
+
         ]);
         DB::beginTransaction();
         try {
